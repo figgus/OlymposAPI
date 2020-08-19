@@ -1,6 +1,7 @@
 ﻿using HookBasicApp.Models.DB;
 using Microsoft.EntityFrameworkCore;
 using OlymPOS.Models.DB;
+using OlymposAPI.Models.DB;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace OlymposAPI.DAL
     {
         public ContextoDB(DbContextOptions<ContextoDB> options) : base(options)
         {
-
+            this.Database.EnsureCreated();
         }
         public DbSet<Categorias> Categorias { get; set; }
         public DbSet<ConfigLocal> ConfigLocal { get; set; }
@@ -31,6 +32,7 @@ namespace OlymposAPI.DAL
         public DbSet<CierreDeGavetas> CierreDeGaveta { get; set; }
         public DbSet<TiposUsuarios> TiposUsuarios { get; set; }
         public DbSet<Descuentos> Descuentos { get; set; }
+        public DbSet<MediosPorCierre> MediosPorCierre { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Usuarios>()

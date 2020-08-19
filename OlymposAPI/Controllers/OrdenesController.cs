@@ -30,7 +30,7 @@ namespace HookBasicApp.Controllers
         // GET: api/Ordenes
         [HttpGet]
         //[EnableCors("PermitirConexion")]
-        public async Task<ActionResult<IEnumerable<Orden>>> GetOrdenes(string fechaDesde)
+        public async Task<ActionResult<IEnumerable<Orden>>> GetOrdenes(string fechaDesde,int sucursalID)
         {
 
             DateTime fecha = DateTime.MinValue;
@@ -40,12 +40,20 @@ namespace HookBasicApp.Controllers
             }
             if (fecha != DateTime.MinValue)
             {
-                return await _context.Ordenes.Where(p => p.FechaCreacion.Date == fecha.Date && !p.IsPagada && !p.IsAnulada).Include(p => p.TipoPedido).
+                return await _context.Ordenes.Where(p => p.FechaCreacion.Date == fecha.Date 
+                && !p.IsPagada 
+                && !p.IsAnulada
+                && p.SucursalesID==sucursalID)
+                    .Include(p => p.TipoPedido).
                 Include(p => p.Usuarios).OrderByDescending(p=>p.FechaCreacion).ToListAsync();
             }
             else
             {
-                var res = await _context.Ordenes.Where(p => p.FechaCreacion.Date == DateTime.Now.Date && !p.IsPagada && !p.IsAnulada).Include(p => p.TipoPedido).
+                var res = await _context.Ordenes
+                    .Where(p => p.FechaCreacion.Date == DateTime.Now.Date 
+                    && !p.IsPagada 
+                    && !p.IsAnulada
+                    && p.SucursalesID==sucursalID).Include(p => p.TipoPedido).
                 Include(p => p.Usuarios).OrderByDescending(p => p.FechaCreacion).ToListAsync();
                 return res;
             }

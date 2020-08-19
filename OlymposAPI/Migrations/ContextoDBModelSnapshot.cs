@@ -294,7 +294,7 @@ namespace OlymposAPI.Migrations
                         .HasColumnType("datetime2")
                         .HasComputedColumnSql("getDate()");
 
-                    b.Property<int>("GavetasID")
+                    b.Property<int?>("GavetasID")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsAnulada")
@@ -654,6 +654,31 @@ namespace OlymposAPI.Migrations
                     b.ToTable("TiposUsuarios");
                 });
 
+            modelBuilder.Entity("OlymposAPI.Models.DB.MediosPorCierre", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("CierreDeGavetasID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MediosDePagoID")
+                        .HasColumnType("int");
+
+                    b.Property<long>("Monto")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("CierreDeGavetasID");
+
+                    b.HasIndex("MediosDePagoID");
+
+                    b.ToTable("MediosPorCierre");
+                });
+
             modelBuilder.Entity("HookBasicApp.Models.DB.AperturaDeGavetas", b =>
                 {
                     b.HasOne("OlymPOS.Models.DB.CierreDeGavetas", "CierreDeGaveta")
@@ -732,9 +757,7 @@ namespace OlymposAPI.Migrations
 
                     b.HasOne("HookBasicApp.Models.DB.Gavetas", "Gavetas")
                         .WithMany()
-                        .HasForeignKey("GavetasID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("GavetasID");
 
                     b.HasOne("HookBasicApp.Models.DB.Sucursales", "Sucursal")
                         .WithMany()
@@ -848,6 +871,19 @@ namespace OlymposAPI.Migrations
                     b.HasOne("HookBasicApp.Models.DB.Gavetas", "Gavetas")
                         .WithMany()
                         .HasForeignKey("GavetasID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("OlymposAPI.Models.DB.MediosPorCierre", b =>
+                {
+                    b.HasOne("OlymPOS.Models.DB.CierreDeGavetas", null)
+                        .WithMany("MediosPorCierre")
+                        .HasForeignKey("CierreDeGavetasID");
+
+                    b.HasOne("HookBasicApp.Models.DB.MediosDePago", "MediosDePago")
+                        .WithMany()
+                        .HasForeignKey("MediosDePagoID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
