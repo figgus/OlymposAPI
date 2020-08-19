@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30406.217
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OlymposAPI", "OlymposAPI\OlymposAPI.csproj", "{4687D3B2-191A-41A2-9A91-57822CBC7506}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4687D3B2-191A-41A2-9A91-57822CBC7506}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4687D3B2-191A-41A2-9A91-57822CBC7506}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4687D3B2-191A-41A2-9A91-57822CBC7506}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4687D3B2-191A-41A2-9A91-57822CBC7506}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {631257F2-4B56-4CF9-828D-9EE3628C91C8}
+	EndGlobalSection
+EndGlobal
