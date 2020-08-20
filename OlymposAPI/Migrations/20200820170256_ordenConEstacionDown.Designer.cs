@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OlymposAPI.DAL;
 
 namespace OlymposAPI.Migrations
 {
     [DbContext(typeof(ContextoDB))]
-    partial class ContextoDBModelSnapshot : ModelSnapshot
+    [Migration("20200820170256_ordenConEstacionDown")]
+    partial class ordenConEstacionDown
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -246,7 +246,8 @@ namespace HookBasicApp.Controllers
                 .Include(p=>p.AperturaDeGaveta)
                 .Include(p=>p.MediosPorOrden)
                 .Where(p=>p.AperturaDeGavetasID==aperturaID ||
-                p.AperturaDeGaveta.GavetasID==apertura.GavetasID)
+                p.AperturaDeGaveta.GavetasID==apertura.GavetasID
+                && p.CierreDeGavetasID==null)
                 .ToListAsync();
             return res;
         }

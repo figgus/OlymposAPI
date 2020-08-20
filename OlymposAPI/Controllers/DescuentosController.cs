@@ -33,7 +33,15 @@ namespace OlymPOS.Controllers
 
         public async Task<ActionResult<IEnumerable<Descuentos>>> GetDescuentos()
         {
-            return await _context.Descuentos.ToListAsync();
+            try
+            {
+                return await _context.Descuentos.ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { error=ex.Message});
+            };
+           
         }
 
         // GET: api/Descuentos/5

@@ -38,7 +38,5 @@ namespace HookBasicApp.Models.DB
         public CierreDeGavetas CierreDeGaveta { get; set; }
         public bool IsAnulada { get; set; }
         public int MontoPropina { get; set; }
-        public int? GavetasID { get; set; }
-        public Gavetas Gavetas { get; set; }
     }
 }

@@ -13,7 +13,7 @@ namespace OlymposAPI.DAL
     {
         public ContextoDB(DbContextOptions<ContextoDB> options) : base(options)
         {
-            this.Database.EnsureCreated();
+
         }
         public DbSet<Categorias> Categorias { get; set; }
         public DbSet<ConfigLocal> ConfigLocal { get; set; }
@@ -33,6 +33,7 @@ namespace OlymposAPI.DAL
         public DbSet<TiposUsuarios> TiposUsuarios { get; set; }
         public DbSet<Descuentos> Descuentos { get; set; }
         public DbSet<MediosPorCierre> MediosPorCierre { get; set; }
+        public DbSet<LogErrores> LogErrores { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Usuarios>()

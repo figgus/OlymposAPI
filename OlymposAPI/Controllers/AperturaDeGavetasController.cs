@@ -143,7 +143,18 @@ namespace OlymPOS.Controllers
             return res;
         }
 
-        
+        [HttpGet("GetAperturaActual")]
+        [EnableCors("PermitirConexion")]
+        public async Task<ActionResult<AperturaDeGavetas>> GetAperturaActual(int estacionesID)
+        {
+            var res = await _context.AperturaDeGavetas.Include(p => p.CierreDeGaveta)
+                .Include(p => p.Usuario)
+                .Include(p => p.Gaveta)
+                .FirstOrDefaultAsync(p =>p.Usuario.EstacionesID == estacionesID && p.CierreDeGavetasID==null);
+
+
+            return res;
+        }
 
 
     }
