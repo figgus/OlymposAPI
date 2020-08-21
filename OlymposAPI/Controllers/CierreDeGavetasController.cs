@@ -91,6 +91,14 @@ namespace OlymposAPI.Controllers
             }
             AperturaDeGavetas aperturaCerrar =await _context.AperturaDeGavetas.FindAsync(cierreDeGavetas.AperturaQueCierra);
             aperturaCerrar.CierreDeGavetasID = cierreDeGavetas.ID;
+            await _context.LogGavetas.AddAsync(new LogGavetas { 
+                Descripcion="Cierre de gaveta",
+                Fecha=DateTime.Now,
+                GavetasID=cierreDeGavetas.GavetasID,
+                Modulo="cierre de gavetas controller",
+                AperturaDeGavetasID=null,
+                CierreDeGavetasID=cierreDeGavetas.ID
+            });
             await _context.SaveChangesAsync();
             return CreatedAtAction("GetCierreDeGavetas", new { id = cierreDeGavetas.ID }, cierreDeGavetas);
         }
