@@ -38,13 +38,16 @@ namespace HookBasicApp.Controllers
                 if ( _context.LogGavetas.Where(p => p.GavetasID == gaveta.ID).Count()>0)
                 {
                     var ultimoRegistro = _context.LogGavetas.Where(p => p.GavetasID == gaveta.ID).ToList().Last();
+                    gaveta.LogGavetas = null;
                     if (ultimoRegistro.AperturaDeGavetasID ==null)
                     {
+                        
                         gavetasDisponibles.Add(gaveta);
                     }
                 }
                 else
                 {
+                    gaveta.LogGavetas = null;
                     gavetasDisponibles.Add(gaveta);
                 }
                 

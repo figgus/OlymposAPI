@@ -10,8 +10,8 @@ using OlymposAPI.DAL;
 namespace OlymposAPI.Migrations
 {
     [DbContext(typeof(ContextoDB))]
-    [Migration("20200820170256_ordenConEstacionDown")]
-    partial class ordenConEstacionDown
+    [Migration("20200822203840_isAdmin")]
+    partial class isAdmin
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -134,9 +134,6 @@ namespace OlymposAPI.Migrations
 
                     b.Property<DateTime>("FechaModificacion")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("FondoDeCaja")
-                        .HasColumnType("int");
 
                     b.Property<bool>("IsHabilitado")
                         .HasColumnType("bit");
@@ -284,9 +281,6 @@ namespace OlymposAPI.Migrations
 
                     b.Property<double>("DescuentoTotal")
                         .HasColumnType("float");
-
-                    b.Property<DateTime>("Fecha")
-                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("FechaCreacion")
                         .HasColumnType("datetime2");
@@ -645,6 +639,12 @@ namespace OlymposAPI.Migrations
 
                     b.Property<string>("Descripcion")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsAdmin")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsSuperAdmin")
+                        .HasColumnType("bit");
 
                     b.HasKey("ID");
 

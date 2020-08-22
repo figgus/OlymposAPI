@@ -13,7 +13,6 @@ namespace HookBasicApp.Models.DB
         public string Nombre { get; set; }
         public DateTime Fecha { get; set; }
         public DateTime FechaModificacion { get; set; }
-        public int FondoDeCaja { get; set; }
 
         public virtual ICollection<LogGavetas> LogGavetas { get; set; }
        

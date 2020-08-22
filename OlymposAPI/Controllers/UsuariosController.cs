@@ -47,7 +47,8 @@ namespace HookBasicApp.Controllers
         [EnableCors("PermitirConexion")]
         public async Task<ActionResult<Usuarios>> GetUsuarios(string pin)
         {
-            var usuarios = await _context.Usuarios.Include(p => p.Sucursal).FirstOrDefaultAsync(p => p.pin == pin);
+            var usuarios = await _context.Usuarios.Include(p => p.Sucursal)
+                .Include(p=>p.TipoUsuario).FirstOrDefaultAsync(p => p.pin == pin);
             
             if (usuarios == null)
             {

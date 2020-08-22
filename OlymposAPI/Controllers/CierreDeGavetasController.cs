@@ -81,7 +81,9 @@ namespace OlymposAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<CierreDeGavetas>> PostCierreDeGavetas(CierreDeGavetas cierreDeGavetas)
         {
+            AperturaDeGavetas aperturaCerrar = await _context.AperturaDeGavetas.FindAsync(cierreDeGavetas.AperturaQueCierra);
             cierreDeGavetas.Fecha = DateTime.Now;
+            cierreDeGavetas.GavetasID = aperturaCerrar.GavetasID;
             _context.CierreDeGaveta.Add(cierreDeGavetas);
             await _context.SaveChangesAsync();
             foreach (var orden in cierreDeGavetas.OrdenesCerrar)
@@ -89,7 +91,7 @@ namespace OlymposAPI.Controllers
                 Orden ordenEditar =await _context.Ordenes.FindAsync(orden.ID);
                 ordenEditar.CierreDeGavetasID = cierreDeGavetas.ID;
             }
-            AperturaDeGavetas aperturaCerrar =await _context.AperturaDeGavetas.FindAsync(cierreDeGavetas.AperturaQueCierra);
+            
             aperturaCerrar.CierreDeGavetasID = cierreDeGavetas.ID;
             await _context.LogGavetas.AddAsync(new LogGavetas { 
                 Descripcion="Cierre de gaveta",

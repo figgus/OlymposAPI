@@ -12,7 +12,6 @@ namespace HookBasicApp.Models.DB
         public int  ID{ get; set; }
         public double Total { get; set; }
         public double Subtotal { get; set; }
-        public DateTime Fecha { get; set; }
         public DateTime FechaCreacion { get; set; }
         [DefaultValue("getdate()")]
         public DateTime FechaModificacion { get; set; }

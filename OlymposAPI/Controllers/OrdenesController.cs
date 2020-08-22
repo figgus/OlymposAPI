@@ -147,17 +147,7 @@ namespace HookBasicApp.Controllers
             orden.Usuarios = null;
             Usuarios usuario = _context.Usuarios.Find(orden.UsuariosID);
             orden.FechaCreacion = DateTime.Now;
-            orden.Fecha = DateTime.Now;
-            var ultimaApertura = _context.AperturaDeGavetas.Include(p=>p.Usuario).FirstOrDefault(p=>p.Usuario.EstacionesID==usuario.EstacionesID);
-            if (ultimaApertura != null)
-            {
-                orden.AperturaDeGavetasID = ultimaApertura.ID;
-            }
-            else
-            {
-                orden.AperturaDeGavetasID = null;
-            }
-            
+
             if (orden.ProductosPorOrden.Count(p=>p.Productos!=null)>0)
             {
                 foreach (var productoOrden in orden.ProductosPorOrden)
@@ -245,9 +235,10 @@ namespace HookBasicApp.Controllers
             var res = await _context.Ordenes
                 .Include(p=>p.AperturaDeGaveta)
                 .Include(p=>p.MediosPorOrden)
-                .Where(p=>p.AperturaDeGavetasID==aperturaID ||
-                p.AperturaDeGaveta.GavetasID==apertura.GavetasID
-                && p.CierreDeGavetasID==null)
+                .Where(p=>(p.AperturaDeGavetasID==aperturaID ||
+                p.AperturaDeGaveta.GavetasID==apertura.GavetasID)
+                && p.CierreDeGavetasID==null
+                && p.IsPagada)
                 .ToListAsync();
             return res;
         }
