@@ -576,16 +576,27 @@ namespace OlymposAPI.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("CierreCiegoAsociadoID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CierreDeGavetasID")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("GavetasID")
                         .HasColumnType("int");
 
+                    b.Property<bool>("IsCerrada")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsCierreCiego")
                         .HasColumnType("bit");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("CierreCiegoAsociadoID");
 
                     b.HasIndex("GavetasID");
 
@@ -877,6 +888,10 @@ namespace OlymposAPI.Migrations
 
             modelBuilder.Entity("OlymPOS.Models.DB.CierreDeGavetas", b =>
                 {
+                    b.HasOne("OlymPOS.Models.DB.CierreDeGavetas", "CierreCiegoAsociado")
+                        .WithMany()
+                        .HasForeignKey("CierreCiegoAsociadoID");
+
                     b.HasOne("HookBasicApp.Models.DB.Gavetas", "Gavetas")
                         .WithMany()
                         .HasForeignKey("GavetasID")

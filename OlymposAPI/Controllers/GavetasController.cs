@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using OlymposAPI.DAL;
+using OlymPOS.Models.DB;
 
 namespace HookBasicApp.Controllers
 {
@@ -39,7 +40,9 @@ namespace HookBasicApp.Controllers
                 {
                     var ultimoRegistro = _context.LogGavetas.Where(p => p.GavetasID == gaveta.ID).ToList().Last();
                     gaveta.LogGavetas = null;
-                    if (ultimoRegistro.AperturaDeGavetasID ==null)
+                    CierreDeGavetas cierreAsociado =await _context.CierreDeGaveta.FindAsync(ultimoRegistro.CierreDeGavetasID);
+                    bool tieneCierreCiego = cierreAsociado != null;
+                    if (ultimoRegistro.AperturaDeGavetasID ==null || (tieneCierreCiego)?(!cierreAsociado.IsCierreCiego) :(false))//== si tiene apertura o un cierre ciego
                     {
                         
                         gavetasDisponibles.Add(gaveta);

@@ -231,13 +231,15 @@ namespace HookBasicApp.Controllers
         [EnableCors("PermitirConexion")]
         public async Task<ActionResult<IEnumerable<Orden>>> GetOrdenesPendientes(int aperturaID)
         {
-            var apertura = _context.AperturaDeGavetas.Find(aperturaID);
+            var apertura = _context.AperturaDeGavetas.Include(p=>p.Usuario).FirstOrDefault(p=>p.ID==aperturaID);
             var res = await _context.Ordenes
                 .Include(p=>p.AperturaDeGaveta)
                 .Include(p=>p.MediosPorOrden)
+                .Include(p=>p.Usuarios)
+                .Include(p=>p.CierreDeGaveta)
                 .Where(p=>(p.AperturaDeGavetasID==aperturaID ||
-                p.AperturaDeGaveta.GavetasID==apertura.GavetasID)
-                && p.CierreDeGavetasID==null
+                p.Usuarios.EstacionesID==apertura.Usuario.EstacionesID)
+                && (p.CierreDeGavetasID==null || p.CierreDeGaveta.IsCierreCiego)
                 && p.IsPagada)
                 .ToListAsync();
             return res;

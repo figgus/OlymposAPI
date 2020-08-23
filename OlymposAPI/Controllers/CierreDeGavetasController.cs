@@ -84,6 +84,7 @@ namespace OlymposAPI.Controllers
             AperturaDeGavetas aperturaCerrar = await _context.AperturaDeGavetas.FindAsync(cierreDeGavetas.AperturaQueCierra);
             cierreDeGavetas.Fecha = DateTime.Now;
             cierreDeGavetas.GavetasID = aperturaCerrar.GavetasID;
+            cierreDeGavetas.CierreDeGavetasID = aperturaCerrar.CierreDeGavetasID;
             _context.CierreDeGaveta.Add(cierreDeGavetas);
             await _context.SaveChangesAsync();
             foreach (var orden in cierreDeGavetas.OrdenesCerrar)
@@ -93,8 +94,16 @@ namespace OlymposAPI.Controllers
             }
             
             aperturaCerrar.CierreDeGavetasID = cierreDeGavetas.ID;
+            if (cierreDeGavetas.IsCierreCiego)
+            {
+                cierreDeGavetas.IsCerrada = false;
+            }
+            else
+            {
+                cierreDeGavetas.IsCerrada = true;
+            }
             await _context.LogGavetas.AddAsync(new LogGavetas { 
-                Descripcion="Cierre de gaveta",
+                Descripcion=((cierreDeGavetas.IsCierreCiego)?("Cierre ciego de gaveta") :("Cierre de gaveta")),
                 Fecha=DateTime.Now,
                 GavetasID=cierreDeGavetas.GavetasID,
                 Modulo="cierre de gavetas controller",

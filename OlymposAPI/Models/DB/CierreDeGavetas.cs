@@ -20,6 +20,8 @@ namespace OlymPOS.Models.DB
         public virtual ICollection<Orden> OrdenesCerrar { get; set; }
         [NotMapped]
         public int AperturaQueCierra { get; set; }
-
+        public int? CierreDeGavetasID { get; set; }
+        public CierreDeGavetas CierreCiegoAsociado { get; set; }
+        public bool IsCerrada { get; set; }
     }
 }

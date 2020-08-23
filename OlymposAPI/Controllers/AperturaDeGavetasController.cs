@@ -137,9 +137,9 @@ namespace OlymPOS.Controllers
             var res = await _context.AperturaDeGavetas.Include(p=>p.CierreDeGaveta)
                 .Include(p=>p.Usuario)
                 .Include(p=>p.Gaveta)
-                .Where(p => p.SucursalesID == sucursalID && p.CierreDeGavetasID==null).ToListAsync();
+                .Include(p=>p.CierreDeGaveta).ThenInclude(p=>p.MediosPorCierre)
+                .Where(p => p.SucursalesID == sucursalID && (p.CierreDeGavetasID==null || (p.CierreDeGaveta.IsCierreCiego && !p.CierreDeGaveta.IsCerrada))).ToListAsync();
             
-
             return res;
         }
 
