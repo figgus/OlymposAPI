@@ -197,14 +197,16 @@ namespace HookBasicApp.Controllers
                 medio.MontoPagadoReal = medio.MontoPagado - (int)orden.Vuelto;
                 if (cont == orden.MediosPorOrden.Count-1)
                 {
+                    medio.MontoPagadoReal = medio.MontoPagado- (int)orden.Vuelto;
                     if (!medio.MediosDePago.IsEfectivo)
                     {
-                        medio.MontoPagadoReal = medio.MontoPagado;
+                        
                         ordenEditar.MontoPropina = (int)orden.Vuelto;
                         ordenEditar.Vuelto = 0;
                     }
                     else
                     {
+
                         ordenEditar.Vuelto = orden.Vuelto;
                     }
                 }
