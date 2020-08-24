@@ -148,6 +148,19 @@ namespace HookBasicApp.Controllers
             Usuarios usuario = _context.Usuarios.Find(orden.UsuariosID);
             orden.FechaCreacion = DateTime.Now;
 
+            try
+            {
+                var ultimaOrden = _context.Ordenes.ToList().Last(p => p.SucursalesID == orden.SucursalesID);
+                orden.NumeroDeOrden = ultimaOrden.NumeroDeOrden + 1;
+            }
+            catch (Exception ex)
+            {
+                orden.NumeroDeOrden = 1;
+            }
+            
+            
+            
+            
             if (orden.ProductosPorOrden.Count(p=>p.Productos!=null)>0)
             {
                 foreach (var productoOrden in orden.ProductosPorOrden)
