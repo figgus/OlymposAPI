@@ -703,6 +703,42 @@ namespace OlymposAPI.Migrations
                     b.ToTable("MediosPorCierre");
                 });
 
+            modelBuilder.Entity("OlymposAPI.Models.DB.MensajesCocina", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("MyProperty")
+                        .HasColumnType("varchar(100)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("MensajesCocina");
+                });
+
+            modelBuilder.Entity("OlymposAPI.Models.DB.MensajesProductos", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Mensaje")
+                        .IsRequired()
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<int>("ProductosPorOrdenID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ProductosPorOrdenID");
+
+                    b.ToTable("MensajesProductos");
+                });
+
             modelBuilder.Entity("HookBasicApp.Models.DB.AperturaDeGavetas", b =>
                 {
                     b.HasOne("OlymPOS.Models.DB.CierreDeGavetas", "CierreDeGaveta")
@@ -908,6 +944,15 @@ namespace OlymposAPI.Migrations
                     b.HasOne("HookBasicApp.Models.DB.MediosDePago", "MediosDePago")
                         .WithMany()
                         .HasForeignKey("MediosDePagoID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("OlymposAPI.Models.DB.MensajesProductos", b =>
+                {
+                    b.HasOne("HookBasicApp.Models.DB.ProductosPorOrden", "ProductosPorOrden")
+                        .WithMany("MensajesProductos")
+                        .HasForeignKey("ProductosPorOrdenID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

@@ -34,6 +34,8 @@ namespace OlymposAPI.DAL
         public DbSet<Descuentos> Descuentos { get; set; }
         public DbSet<MediosPorCierre> MediosPorCierre { get; set; }
         public DbSet<LogErrores> LogErrores { get; set; }
+        public DbSet<MensajesCocina> MensajesCocina { get; set; }
+        public DbSet<MensajesProductos> MensajesProductos { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Usuarios>()

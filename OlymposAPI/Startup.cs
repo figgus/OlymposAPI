@@ -33,7 +33,6 @@ namespace OlymposAPI
             {
                 builder.AllowAnyOrigin()
                        .AllowAnyMethod()
-                       .AllowAnyHeader()
                        .AllowAnyHeader();
             }));
             services.AddAuthorization();

@@ -67,6 +67,7 @@ namespace HookBasicApp.Controllers
             var orden = await _context.Ordenes
                 .Include(p=>p.TipoPedido)
                 .Include(p=>p.ProductosPorOrden).ThenInclude(p=>p.Productos)
+                .Include(p=>p.ProductosPorOrden).ThenInclude(p=>p.MensajesProductos)
                 .Include(p=>p.Usuarios)
                 .FirstOrDefaultAsync(p=>p.ID==id);
 
