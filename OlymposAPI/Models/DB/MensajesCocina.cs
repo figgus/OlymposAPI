@@ -10,6 +10,7 @@ namespace OlymposAPI.Models.DB
     {
         public int ID { get; set; }
         [Column(TypeName = "varchar(100)")]
-        public string MyProperty { get; set; }
+        public string Mensaje { get; set; }
+        public bool IsHabilitado { get; set; }
     }
 }

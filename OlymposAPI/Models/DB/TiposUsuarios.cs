@@ -9,7 +9,7 @@ namespace OlymPOS.Models.DB
     {
         public int ID { get; set; }
         public string Descripcion { get; set; }
-        public bool IsAdmin { get; set; }
-        public bool IsSuperAdmin { get; set; }
+        public bool? IsAdmin { get; set; }
+        public bool? IsSuperAdmin { get; set; }
     }
 }

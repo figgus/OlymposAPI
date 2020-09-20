@@ -84,7 +84,7 @@ namespace OlymposAPI.Controllers
             AperturaDeGavetas aperturaCerrar = await _context.AperturaDeGavetas.FindAsync(cierreDeGavetas.AperturaQueCierra);
             cierreDeGavetas.Fecha = DateTime.Now;
             cierreDeGavetas.GavetasID = aperturaCerrar.GavetasID;
-            cierreDeGavetas.CierreDeGavetasID = aperturaCerrar.CierreDeGavetasID;
+            //cierreDeGavetas.CierreDeGavetasID = aperturaCerrar.CierreDeGavetasID;
             _context.CierreDeGaveta.Add(cierreDeGavetas);
             await _context.SaveChangesAsync();
             foreach (var orden in cierreDeGavetas.OrdenesCerrar)

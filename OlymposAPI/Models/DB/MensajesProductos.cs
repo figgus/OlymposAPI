@@ -13,7 +13,7 @@ namespace OlymposAPI.Models.DB
         public int ProductosPorOrdenID { get; set; }
         public ProductosPorOrden ProductosPorOrden { get; set; }
         [Column(TypeName = "varchar(50)")]
-        public int Mensaje { get; set; }
+        public string Mensaje { get; set; }
 
     }
 }

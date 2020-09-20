@@ -11,6 +11,7 @@ using System.Reflection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
+using OlymposAPI.Models.DB;
 
 namespace HookBasicApp.Controllers
 {
@@ -75,7 +76,13 @@ namespace HookBasicApp.Controllers
             {
                 return NotFound();
             }
-
+            foreach (var prod in orden.ProductosPorOrden)
+            {
+                foreach (var mensaje in prod.MensajesProductos)
+                {
+                    mensaje.ProductosPorOrden = null;
+                }
+            }
             return orden;
         }
 
@@ -102,7 +109,17 @@ namespace HookBasicApp.Controllers
                 {
                     _context.Entry(productoOrden).State = EntityState.Modified;
                 }
-                
+                foreach (var mensaje in productoOrden.MensajesProductos)
+                {
+                    if (mensaje.ID==0)
+                    {
+                        await _context.MensajesProductos.AddAsync(mensaje);
+                    }
+                    else
+                    {
+                        _context.Entry(mensaje).State = EntityState.Modified;
+                    }
+                }
             }
 
             try

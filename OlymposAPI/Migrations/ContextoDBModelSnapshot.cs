@@ -576,12 +576,6 @@ namespace OlymposAPI.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CierreCiegoAsociadoID")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("CierreDeGavetasID")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("datetime2");
 
@@ -595,8 +589,6 @@ namespace OlymposAPI.Migrations
                         .HasColumnType("bit");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("CierreCiegoAsociadoID");
 
                     b.HasIndex("GavetasID");
 
@@ -649,10 +641,10 @@ namespace OlymposAPI.Migrations
                     b.Property<string>("Descripcion")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsAdmin")
+                    b.Property<bool?>("IsAdmin")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsSuperAdmin")
+                    b.Property<bool?>("IsSuperAdmin")
                         .HasColumnType("bit");
 
                     b.HasKey("ID");
@@ -710,7 +702,10 @@ namespace OlymposAPI.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("MyProperty")
+                    b.Property<bool>("IsHabilitado")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Mensaje")
                         .HasColumnType("varchar(100)");
 
                     b.HasKey("ID");
@@ -924,10 +919,6 @@ namespace OlymposAPI.Migrations
 
             modelBuilder.Entity("OlymPOS.Models.DB.CierreDeGavetas", b =>
                 {
-                    b.HasOne("OlymPOS.Models.DB.CierreDeGavetas", "CierreCiegoAsociado")
-                        .WithMany()
-                        .HasForeignKey("CierreCiegoAsociadoID");
-
                     b.HasOne("HookBasicApp.Models.DB.Gavetas", "Gavetas")
                         .WithMany()
                         .HasForeignKey("GavetasID")
