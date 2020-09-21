@@ -95,36 +95,28 @@ namespace HookBasicApp.Controllers
             {
                 return BadRequest();
             }
-            
 
             _context.Entry(orden).State = EntityState.Modified;
+
+            var productosAnteriores = _context.ProductosPorOrden.Where(p => p.OrdenID == orden.ID).ToList();
+            _context.RemoveRange(productosAnteriores);
+            await _context.SaveChangesAsync();
+
             foreach (var productoOrden in orden.ProductosPorOrden)
             {
-                if (productoOrden.ID==0)
-                {
-                    productoOrden.Productos = null;
-                    await _context.ProductosPorOrden.AddAsync(productoOrden);
-                }
-                else
-                {
-                    _context.Entry(productoOrden).State = EntityState.Modified;
-                }
+                productoOrden.Productos = null;
+                productoOrden.ID = 0;
+                await _context.ProductosPorOrden.AddAsync(productoOrden);
                 foreach (var mensaje in productoOrden.MensajesProductos)
                 {
-                    if (mensaje.ID==0)
-                    {
-                        await _context.MensajesProductos.AddAsync(mensaje);
-                    }
-                    else
-                    {
-                        _context.Entry(mensaje).State = EntityState.Modified;
-                    }
+                    mensaje.ID = 0;
                 }
             }
-
+            
             try
             {
                 await _context.SaveChangesAsync();
+
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -137,8 +129,34 @@ namespace HookBasicApp.Controllers
                     throw;
                 }
             }
+            catch (Exception ex)
+            {
+
+            }
 
             return NoContent();
+        }
+
+        private async Task<bool> BorrarProductos(List<ProductosPorOrden> listaAnterior, List<ProductosPorOrden> listaNueva)
+        {
+            List<ProductosPorOrden> res = new List<ProductosPorOrden>();
+            foreach (var productoAnterior in listaAnterior)
+            {
+                bool any = listaNueva.Any(p => p.ID == productoAnterior.ID);
+                if (!any)
+                {
+                    res.Add(productoAnterior);
+                }
+            }
+            if (res.Count > 0)
+            {
+                _context.RemoveRange(res);
+                await _context.SaveChangesAsync();
+
+            }
+
+            return true;
+            
         }
 
         private bool IsIdentico(ProductosPorOrden productoOriginal, ProductosPorOrden productoNuevo)

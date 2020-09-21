@@ -15,6 +15,11 @@ namespace OlymposAPI.DAL
         {
 
         }
+
+        public ContextoDB()
+        {
+
+        }
         public DbSet<Categorias> Categorias { get; set; }
         public DbSet<ConfigLocal> ConfigLocal { get; set; }
         public DbSet<Familias> Familias { get; set; }
