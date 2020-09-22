@@ -91,6 +91,9 @@ namespace HookBasicApp.Controllers
         [EnableCors("PermitirConexion")]
         public async Task<ActionResult<Categorias>> PostCategorias(Categorias categorias)
         {
+            categorias.FechaCracion = DateTime.Now;
+            categorias.FechaModificacion = DateTime.Now;
+            categorias.Descripcion = categorias.Descripcion.ToUpper();
             _context.Categorias.Add(categorias);
             await _context.SaveChangesAsync();
 

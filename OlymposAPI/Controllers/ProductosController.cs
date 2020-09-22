@@ -103,6 +103,7 @@ namespace HookBasicApp.Controllers
         [EnableCors("PermitirConexion")]
         public async Task<ActionResult<Productos>> PostProductos(Productos productos)
         {
+            productos.Nombre = productos.Nombre.ToUpper();
             _context.Productos.Add(productos);
             await _context.SaveChangesAsync();
             foreach (var sucursal in productos.SucursalesAsociadas)
