@@ -16,7 +16,7 @@ namespace HookBasicApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    ////[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     //[EnableCors("PermitirConexion")]
     public class CategoriasController : ControllerBase
     {

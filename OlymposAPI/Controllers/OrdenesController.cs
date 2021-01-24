@@ -17,8 +17,8 @@ namespace HookBasicApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    [EnableCors("PermitirConexion")]
+    [Authorize(AuthenticationSchemes = "Bearer")]
+    //[EnableCors("PermitirConexion")]
     public class OrdenesController : ControllerBase
     {
         private readonly ContextoDB _context;
